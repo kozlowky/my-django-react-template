@@ -1,0 +1,13 @@
+{
+  "name": "my-django-react-template",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build"
+  },
+  "devDependencies": {
+    "turbo": "latest"
+  },
+  "packageManager": "pnpm@9.0.0"
+}
