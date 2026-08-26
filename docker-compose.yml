@@ -7,11 +7,22 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=myapp
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: myapp-redis
+    ports:
+      - "6380:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -31,10 +42,34 @@ services:
       - DB_PASSWORD=postgres
       - DB_HOST=db
       - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     command: python manage.py runserver 0.0.0.0:8000
+
+  worker:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    container_name: myapp-worker
+    volumes:
+      - ./apps/api:/app
+    environment:
+      - DB_NAME=myapp
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A core worker -l info
 
   web:
     build:
@@ -48,7 +83,7 @@ services:
       - /app/node_modules
     environment:
       - VITE_API_URL=http://localhost:8000/api
-    command: pnpm dev --host 0.0.0.0
+    command: sh -c "corepack enable && pnpm dev --host 0.0.0.0"
 
 volumes:
   postgres_data:

@@ -1,22 +1,25 @@
-FROM node:20-alpine
+# --- STAGE 1: Build ---
+FROM node:22-alpine AS builder
 
-# Устанавливаем pnpm глобально
-RUN npm install -g pnpm
+RUN corepack enable
 
 WORKDIR /app
 
-# Копируем зависимости
 COPY package.json pnpm-lock.yaml* ./
-RUN pnpm install --frozen-lockfile
 
-# Копируем код
+RUN pnpm install --no-frozen-lockfile
+
 COPY . .
-
-# Собираем
 RUN pnpm build
 
-# Устанавливаем serve для запуска
+# --- STAGE 2: Runner ---
+FROM node:22-alpine AS runner
+
+WORKDIR /app
+
 RUN npm install -g serve
+
+COPY --from=builder /app/dist ./dist
 
 EXPOSE 3000
 
