@@ -16,3 +16,5 @@ async def setup_django(state: TaskiqState) -> None:
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
     django.setup()
+
+    import accounts.tasks  # noqa: F401

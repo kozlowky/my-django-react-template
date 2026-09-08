@@ -35,3 +35,7 @@ Thumbs.db
 
 # Docker
 *.log
+
+# macOS metadata
+._*
+.DS_Store

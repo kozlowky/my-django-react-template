@@ -123,7 +123,7 @@ class AccountsMutation:
             key=_REFRESH_COOKIE,
             value=str(refresh),
             httponly=True,
-            secure=True,
+            secure=False,
             samesite="Lax",
             max_age=_COOKIE_MAX_AGE,
             path="/graphql/",
