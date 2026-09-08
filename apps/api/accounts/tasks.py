@@ -1,10 +1,10 @@
-from celery import shared_task
+from core.broker import broker
 from django.conf import settings
 from django.core.mail import send_mail
 
 
-@shared_task
-def send_otp_email(email, code):
+@broker.task
+def send_otp_email(email: str, code: str) -> None:
     send_mail(
         subject="Код подтверждения SELTE",
         message=f"Ваш код: {code}. Он действует 5 минут.",

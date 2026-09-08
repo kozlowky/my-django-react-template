@@ -1,0 +1,452 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 1,
+    "fields": {
+      "email": "sofia.orlova@selted.dev",
+      "display_name": "Sofia Orlova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 2,
+    "fields": {
+      "email": "ivan.petrov@selted.dev",
+      "display_name": "Ivan Petrov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 3,
+    "fields": {
+      "email": "maria.volkova@selted.dev",
+      "display_name": "Maria Volkova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 4,
+    "fields": {
+      "email": "dmitry.sokolov@selted.dev",
+      "display_name": "Dmitry Sokolov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 5,
+    "fields": {
+      "email": "anna.morozova@selted.dev",
+      "display_name": "Anna Morozova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 6,
+    "fields": {
+      "email": "alexei.novikov@selted.dev",
+      "display_name": "Alexei Novikov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 7,
+    "fields": {
+      "email": "elena.kozlova@selted.dev",
+      "display_name": "Elena Kozlova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 8,
+    "fields": {
+      "email": "nikita.lebedev@selted.dev",
+      "display_name": "Nikita Lebedev",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 9,
+    "fields": {
+      "email": "daria.popova@selted.dev",
+      "display_name": "Daria Popova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 10,
+    "fields": {
+      "email": "mikhail.sobolev@selted.dev",
+      "display_name": "Mikhail Sobolev",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 11,
+    "fields": {
+      "email": "polina.fedorova@selted.dev",
+      "display_name": "Polina Fedorova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 12,
+    "fields": {
+      "email": "artem.kuznetsov@selted.dev",
+      "display_name": "Artem Kuznetsov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 13,
+    "fields": {
+      "email": "veronika.smirnova@selted.dev",
+      "display_name": "Veronika Smirnova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 14,
+    "fields": {
+      "email": "egor.zaytsev@selted.dev",
+      "display_name": "Egor Zaytsev",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 15,
+    "fields": {
+      "email": "ksenia.andreeva@selted.dev",
+      "display_name": "Ksenia Andreeva",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 16,
+    "fields": {
+      "email": "pavel.nikitin@selted.dev",
+      "display_name": "Pavel Nikitin",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 17,
+    "fields": {
+      "email": "anastasia.guseva@selted.dev",
+      "display_name": "Anastasia Guseva",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 18,
+    "fields": {
+      "email": "roman.stepanov@selted.dev",
+      "display_name": "Roman Stepanov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 19,
+    "fields": {
+      "email": "yulia.vinogradova@selted.dev",
+      "display_name": "Yulia Vinogradova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 20,
+    "fields": {
+      "email": "kirill.tikhonov@selted.dev",
+      "display_name": "Kirill Tikhonov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 21,
+    "fields": {
+      "email": "alina.pavlova@selted.dev",
+      "display_name": "Alina Pavlova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 22,
+    "fields": {
+      "email": "denis.semyonov@selted.dev",
+      "display_name": "Denis Semyonov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 23,
+    "fields": {
+      "email": "natalia.bogdanova@selted.dev",
+      "display_name": "Natalia Bogdanova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 24,
+    "fields": {
+      "email": "vadim.frolov@selted.dev",
+      "display_name": "Vadim Frolov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 25,
+    "fields": {
+      "email": "irina.voronova@selted.dev",
+      "display_name": "Irina Voronova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 26,
+    "fields": {
+      "email": "stanislav.nesterov@selted.dev",
+      "display_name": "Stanislav Nesterov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 27,
+    "fields": {
+      "email": "kristina.savina@selted.dev",
+      "display_name": "Kristina Savina",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 28,
+    "fields": {
+      "email": "timur.loginov@selted.dev",
+      "display_name": "Timur Loginov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 29,
+    "fields": {
+      "email": "olesya.ryabova@selted.dev",
+      "display_name": "Olesya Ryabova",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 30,
+    "fields": {
+      "email": "gleb.cherepanov@selted.dev",
+      "display_name": "Gleb Cherepanov",
+      "password": "pbkdf2_sha256$870000$YQk3gxcQKlD7pUfFqm1C4w$TdNlJOvxw3N+wZLjmx1xHx44OU9DLtEMriX7MIr3b1I=",
+      "avatar": null,
+      "is_active": true,
+      "is_staff": false,
+      "date_joined": "2026-08-31T06:06:58Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

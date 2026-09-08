@@ -1,0 +1,35 @@
+FROM python:3.14-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir "uv>=0.5,<1" \
+    && useradd --create-home --uid 1000 appuser
+
+COPY pyproject.toml uv.lock* ./
+
+RUN uv sync --frozen --no-dev
+
+COPY . .
+
+RUN chmod +x wait-for-db.sh
+
+# Дефолт на случай, если кто-то забудет прокинуть ENVIRONMENT явно — образ
+# не должен молча уехать в dev-настройки. core/settings/__init__.py читает
+# именно эту переменную и по ней выбирает prod.py или dev.py.
+ENV ENVIRONMENT=production
+
+# DJANGO_SECRET_KEY нужен только на время collectstatic (сам collectstatic
+# секрет не использует, но импорт settings.py его требует) — задаём его как
+# переменную только для этой команды, а не как ENV на весь образ, чтобы
+# плейсхолдер не оседал в слоях/метаданных образа. Реальный секрет приходит
+# в контейнер из .env.production через env_file в docker-compose.
+RUN DJANGO_SECRET_KEY=build-time-placeholder \
+    uv run python manage.py collectstatic --noinput \
+    && chown -R appuser:appuser /app
+
+USER 1000
+
+EXPOSE 8000
+
+ENTRYPOINT ["./wait-for-db.sh"]
+CMD ["uv", "run", "gunicorn", "core.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "3"]

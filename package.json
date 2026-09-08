@@ -1,10 +1,12 @@
 {
-  "name": "SELTE",
+  "name": "SELTED",
   "private": true,
   "version": "0.1.0",
   "scripts": {
     "dev": "turbo dev",
-    "build": "turbo build"
+    "build": "turbo build",
+    "docker:dev": "docker compose --env-file .env.development -f deployments/docker/dev/docker-compose.yml up --build",
+    "docker:prod": "docker compose --env-file .env.production -f deployments/docker/prod/docker-compose.yml up --build -d"
   },
   "devDependencies": {
     "turbo": "latest"

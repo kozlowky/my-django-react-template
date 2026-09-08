@@ -1,0 +1,1 @@
+/// <reference types="@hugeicons/core-free-icons" />

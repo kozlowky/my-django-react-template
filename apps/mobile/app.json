@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "SELTE",
+    "slug": "SELTE",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.selte.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.selte.app"
+    },
+    "scheme": "selted",
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-video"
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/dbd14c07-619a-4131-bc3d-cb808b1f1328"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dbd14c07-619a-4131-bc3d-cb808b1f1328"
+      }
+    },
+    "owner": "seltegroup"
+  }
+}

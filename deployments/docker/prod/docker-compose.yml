@@ -1,0 +1,94 @@
+# Prod-стек SELTE. Запускать из корня репозитория:
+#   make prod
+# (эквивалент: docker compose --env-file .env.production \
+#     -f deployments/docker/prod/docker-compose.yml up --build -d)
+#
+# db/redis ниже — самохостинг для варианта "всё на одном сервере".
+# Если используете managed Postgres/Redis (RDS/ElastiCache и т.п.) — уберите
+# эти два сервиса и укажите DB_HOST/REDIS_URL на внешние адреса в .env.production.
+#
+# Явное top-level `name:` — без него имя проекта (и, соответственно, имена
+# volume'ов) определяется именем папки, где лежит compose-файл.
+name: selte-prod
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: selte-prod-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: selte-prod-redis
+    restart: unless-stopped
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: ../../../apps/api
+      dockerfile: Dockerfile.prod
+    container_name: selte-prod-api
+    restart: unless-stopped
+    env_file: ../../../.env.prod
+    environment:
+      - ENVIRONMENT=production
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-5432}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ../../../apps/api
+      dockerfile: Dockerfile.prod
+    container_name: selte-prod-worker
+    restart: unless-stopped
+    env_file: ../../../.env.prod
+    environment:
+      - ENVIRONMENT=production
+      - DB_HOST=${DB_HOST:-db}
+      - DB_PORT=${DB_PORT:-5432}
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uv run taskiq worker core.broker:broker
+
+  web:
+    build:
+      context: ../../..
+      dockerfile: apps/web/Dockerfile.prod
+      args:
+        VITE_API_URL: ${VITE_API_URL}
+    container_name: selte-prod-web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-80}:80"
+    depends_on:
+      - api
+
+volumes:
+  postgres_data:
+  redis_data:

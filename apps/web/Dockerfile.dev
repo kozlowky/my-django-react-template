@@ -1,0 +1,19 @@
+FROM node:22-alpine
+
+RUN corepack enable
+
+WORKDIR /app
+
+# Контекст сборки — корень репозитория (см. deployments/docker/*/docker-compose.yml),
+# не apps/web: apps/web зависит от packages/* через "workspace:*", и pnpm должен
+# видеть весь монорепозиторий, а не один пакет — иначе
+# ERR_PNPM_WORKSPACE_PKG_NOT_FOUND ("Packages found in the workspace: web").
+COPY . .
+
+RUN pnpm install
+
+WORKDIR /app/apps/web
+
+EXPOSE 3000
+
+CMD ["pnpm", "dev", "--host", "0.0.0.0"]

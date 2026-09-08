@@ -5,18 +5,23 @@ __pycache__/
 *.so
 .Python
 .env
+.env.*
+!.env.example
+!.env.*.example
 venv/
 .venv/
 ENV/
 db.sqlite3
 *.sqlite3
+staticfiles/
+staticfiles/
+staticfiles/
 
 # Node
 node_modules/
 dist/
 dist-ssr/
 *.local
-pnpm-lock.yaml
 
 # IDE
 .vscode/

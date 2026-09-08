@@ -1,0 +1,132 @@
+# Dev-стек SELTE. Запускать из корня репозитория:
+#   make dev
+# (эквивалент: docker compose --env-file .env.dev \
+#     -f deployments/docker/dev/docker-compose.yml up --build)
+#
+# Явное top-level `name:` — без него docker compose берёт имя проекта из
+# имени папки, где лежит сам compose-файл (тут было бы "dev"), и на это имя
+# завязаны имена volume'ов/сети. Задаём его сами, чтобы это не зависело от
+# того, откуда и как именно будет запущена команда.
+name: selte-dev
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: selte-dev-db
+    environment:
+      - POSTGRES_USER=${DB_USER:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
+      - POSTGRES_DB=${DB_NAME:-myapp}
+    ports:
+      - "${DB_HOST_PORT:-5433}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: selte-dev-redis
+    ports:
+      - "${REDIS_HOST_PORT:-6380}:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    container_name: selte-dev-minio
+    command: server /data --console-address ":9001"
+    environment:
+      - MINIO_ROOT_USER=${S3_ACCESS_KEY:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${S3_SECRET_KEY:-minioadmin123}
+    ports:
+      - "9000:9000"  # S3 API
+      - "9001:9001"  # веб-консоль (http://localhost:9001)
+    volumes:
+      - minio_data:/data
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until mc alias set local http://minio:9000 ${S3_ACCESS_KEY:-minioadmin} ${S3_SECRET_KEY:-minioadmin123}; do
+        echo 'Waiting for MinIO...'; sleep 2;
+      done;
+      mc mb --ignore-existing local/${S3_BUCKET:-selte-wardrobe};
+      exit 0;
+      "
+
+  api:
+    build:
+      context: ../../../apps/api
+      dockerfile: Dockerfile.dev
+    container_name: selte-dev-api
+    env_file: ../../../.env.dev
+    environment:
+      - ENVIRONMENT=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379
+      - S3_ENDPOINT_URL=http://minio:9000
+      - S3_USE_SSL=false
+      - PYTHONPATH=/app
+    ports:
+      - "${API_PORT:-8000}:8000"
+    volumes:
+      - ../../../apps/api:/app
+      - /app/.venv
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: ../../../apps/api
+      dockerfile: Dockerfile.dev
+    container_name: selte-dev-worker
+    env_file: ../../../.env.dev
+    environment:
+      - ENVIRONMENT=development
+      - DB_HOST=db
+      - DB_PORT=5432
+      - REDIS_URL=redis://redis:6379
+      - S3_ENDPOINT_URL=http://minio:9000
+      - S3_USE_SSL=false
+      - PYTHONPATH=/app
+    volumes:
+      - ../../../apps/api:/app
+      - /app/.venv
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: uv run taskiq worker core.broker:broker accounts.tasks
+
+  web:
+    build:
+      context: ../../..
+      dockerfile: apps/web/Dockerfile.dev
+    container_name: selte-dev-web
+    environment:
+      - VITE_API_URL=${VITE_API_URL:-http://localhost:8000/api}
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    volumes:
+      - ../../../apps/web:/app/apps/web
+      - ../../../packages:/app/packages
+      - /app/apps/web/node_modules
+      - /app/node_modules
+
+volumes:
+  postgres_data:
+  minio_data:

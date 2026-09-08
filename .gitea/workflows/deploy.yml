@@ -1,0 +1,37 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          ssh-keyscan -H 31.130.132.222 >> ~/.ssh/known_hosts
+
+      - name: Sync code to VPS
+        run: |
+          rsync -avz --delete \
+            --exclude '.git' \
+            --exclude 'node_modules' \
+            --exclude '.venv' \
+            --exclude '__pycache__' \
+            --exclude 'apps/mobile/.expo' \
+            --exclude '*.pyc' \
+            -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=no" \
+            ./ selte@31.130.132.222:~/app/
+
+      - name: Rebuild & restart API
+        run: |
+          ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=no selte@31.130.132.222 \
+            "cd ~/app && docker compose --env-file .env.production \
+              -f deployments/docker/prod/docker-compose.yml \
+              up -d --build --no-deps api worker"

@@ -3,21 +3,31 @@ name = "api"
 version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
+    "whitenoise>=6.7",
+    "gunicorn>=23.0",
     "django>=5.1",
-    "djangorestframework>=3.15",
     "django-cors-headers>=4.4",
-    "psycopg2-binary>=2.9",
+    "psycopg[binary]>=3.2",
     "djangorestframework-simplejwt>=5.3",
     "django-redis>=5.4",
-    "celery>=5.4",
     "redis>=5.0",
-    "drf-spectacular>=0.27",
-    "drf-pydantic>=2.0",
     "pydantic[email]>=2.0",
+    "django-storages[s3]>=1.14",
+    "Pillow>=11.0",
+    "strawberry-graphql[django]>=0.325.0",
+    "taskiq>=0.12.6",
+    "taskiq-redis>=1.2.3",
+    "channels>=4.0",
+    "channels-redis>=4.0",
+    "daphne>=4.0",
 ]
 
 [tool.uv]
 managed = true
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
+default = true
 
 [dependency-groups]
 dev = [

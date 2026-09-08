@@ -1,0 +1,23 @@
+FROM python:3.14-slim
+
+WORKDIR /app
+
+RUN pip install --no-cache-dir "uv>=0.5,<1"
+
+COPY pyproject.toml uv.lock* ./
+
+# без --no-dev: нужны pytest/black внутри контейнера
+RUN uv sync --frozen
+
+COPY . .
+
+RUN chmod +x wait-for-db.sh
+
+# Явно, хотя это и так дефолт в core/settings/__init__.py — чтобы было видно
+# из самого Dockerfile, какое окружение тут запускается.
+ENV ENVIRONMENT=development
+
+EXPOSE 8000
+
+ENTRYPOINT ["./wait-for-db.sh"]
+CMD ["uv", "run", "daphne", "-b", "0.0.0.0", "-p", "8000", "core.asgi:application"]

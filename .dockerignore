@@ -1,0 +1,11 @@
+**/.git
+**/node_modules
+**/.pnpm-store
+**/dist
+**/.venv
+**/__pycache__
+**/*.pyc
+**/.pytest_cache
+**/.mypy_cache
+**/.DS_Store
+apps/api/staticfiles

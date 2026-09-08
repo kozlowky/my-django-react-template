@@ -1,0 +1,79 @@
+import strawberry
+from accounts.models import Follow, User
+from core.graphql.context import GraphQLContext
+from core.graphql.permissions import IsAuthenticated
+from django.db.models import Count, QuerySet
+from strawberry.types import Info
+
+from .types import UserProfileType, UserType
+
+
+def _with_counts(qs: QuerySet) -> QuerySet:
+    return qs.annotate(
+        followers_count=Count("followers", distinct=True),
+        following_count=Count("following", distinct=True),
+    )
+
+
+@strawberry.type
+class AccountsQuery:
+    @strawberry.field(permission_classes=[IsAuthenticated])
+    def me(self, info: Info[GraphQLContext, None]) -> UserType:
+        user = _with_counts(User.objects.filter(pk=info.context.user.pk)).get()
+        return UserType.from_model(user)
+
+    @strawberry.field(permission_classes=[IsAuthenticated])
+    def search_users(
+        self, info: Info[GraphQLContext, None], query: str
+    ) -> list[UserType]:
+        if len(query.strip()) < 2:
+            return []
+        qs = _with_counts(
+            User.objects.filter(is_active=True)
+            .filter(display_name__icontains=query)
+            .exclude(pk=info.context.user.pk)  # type: ignore[union-attr]
+            .order_by("display_name")[:20]
+        )
+        return [UserType.from_model(u) for u in qs]
+
+    @strawberry.field(permission_classes=[IsAuthenticated])
+    def user_profile(
+        self, info: Info[GraphQLContext, None], id: strawberry.ID
+    ) -> UserProfileType | None:
+        me = info.context.user
+        try:
+            user = _with_counts(User.objects.filter(pk=int(id), is_active=True)).get()
+        except (User.DoesNotExist, ValueError):
+            return None
+        is_following = Follow.objects.filter(follower=me, following=user).exists()
+        return UserProfileType.from_model_with_follow(user, is_following)
+
+    @strawberry.field(permission_classes=[IsAuthenticated])
+    def followers(
+        self, info: Info[GraphQLContext, None], user_id: strawberry.ID
+    ) -> list[UserType]:
+        try:
+            user = User.objects.get(pk=int(user_id), is_active=True)
+        except (User.DoesNotExist, ValueError):
+            return []
+        qs = _with_counts(
+            User.objects.filter(following__following=user, is_active=True)
+            .exclude(pk=user.pk)
+            .order_by("display_name")
+        )
+        return [UserType.from_model(u) for u in qs]
+
+    @strawberry.field(permission_classes=[IsAuthenticated])
+    def following(
+        self, info: Info[GraphQLContext, None], user_id: strawberry.ID
+    ) -> list[UserType]:
+        try:
+            user = User.objects.get(pk=int(user_id), is_active=True)
+        except (User.DoesNotExist, ValueError):
+            return []
+        qs = _with_counts(
+            User.objects.filter(followers__follower=user, is_active=True)
+            .exclude(pk=user.pk)
+            .order_by("display_name")
+        )
+        return [UserType.from_model(u) for u in qs]
